@@ -1,10 +1,12 @@
 ---
 - hosts: localhost
+  vars:
+    stage_dir: /home/ayoung/ocp-ansible/stage
   tasks:
 
     - name: Creates directory
       file:
-        path:  /home/ayoung/ocp-ansible/stage
+        path:  "{{ stage_dir }}"
         state: directory
 
     - name: regen install-config 
