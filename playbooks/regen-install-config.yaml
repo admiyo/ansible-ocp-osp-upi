@@ -1,7 +1,6 @@
 ---
 - hosts: localhost
   vars:
-    stage_dir: /home/ayoung/ocp-ansible/stage
   tasks:
 
     - name: Creates directory

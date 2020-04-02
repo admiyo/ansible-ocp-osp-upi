@@ -1,2 +1,2 @@
 #!/bin/sh 
-ansible-playbook playbooks/regen-install-config.yaml
+ansible-playbook -e @vars/main.yaml playbooks/regen-install-config.yaml

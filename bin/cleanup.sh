@@ -1,2 +1,2 @@
 #!/bin/sh 
-ansible-playbook playbooks/cleanup.yaml
+ansible-playbook   -e @vars/main.yaml  playbooks/cleanup.yaml
