@@ -44,3 +44,22 @@
       command: "{{ base_dir }}/bin/unschedulable_control.py"
       args:
         chdir:  "{{ stage_dir }}"
+
+    - name: generate ignition files
+      command: "{{ installer }} create ignition-configs"
+      environment:
+        OS_CLOUD: fsi-moc
+
+    - name: register infraId
+      shell: jq -r .infraID metadata.json
+      register: INFRA_ID
+      args:
+        chdir:  "{{ stage_dir }}"
+
+    - name: modify bootstrap
+      command: "{{ base_dir }}/bin/mod_bootstrap.py"
+      args:
+        chdir:  "{{ stage_dir }}"
+      environment:
+        INFRA_IDS: "{{ INFRA_ID }}"
+
