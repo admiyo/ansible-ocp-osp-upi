@@ -1,0 +1,10 @@
+---
+- hosts: localhost
+  vars:
+    stage_dir: /home/ayoung/ocp-ansible/stage
+  tasks:
+    - name: Creates directory
+      file:
+        path:  "{{ stage_dir }}"
+        state: absent
+
