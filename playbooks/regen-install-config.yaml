@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   vars:
-    base_dir: /home/ayoung/ocp-ansible
+    installer:  "{{ base_dir }}/bin/openshift-install --dir {{ stage_dir }}" 
   tasks:
 
     - name: Creates directory
@@ -15,8 +15,17 @@
         dest: "{{ stage_dir }}/install-config.yaml"
 
     - name: validate install-config
-      command: "{{ base_dir }}/bin/openshift-install create install-config --dir {{ stage_dir }}"
+      command: "{{ installer }} create install-config"
       environment:
         OS_CLOUD: fsi-moc
 
+    - name: adjust install config
+      command: "{{ base_dir }}/bin/adjust_install_config.py"
+      args:
+        chdir:  "{{ base_dir }}/stage"
+
+    - name: create manifests
+      command: "{{ installer }} create manifests"
+      environment:
+         OS_CLOUD: fsi-moc
 

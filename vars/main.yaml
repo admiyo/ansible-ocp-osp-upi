@@ -1,2 +1,3 @@
 ---
-stage_dir: /home/ayoung/ocp-ansible/stage
+base_dir: /home/ayoung/ocp-ansible
+stage_dir: "{{ base_dir }}/stage"
