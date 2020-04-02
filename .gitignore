@@ -2,3 +2,5 @@ stage/
 */.openshift_install_state.json
 */.openshift_install.log
 files/install-config.orig
+bin/README.md
+bin/openshift-install
