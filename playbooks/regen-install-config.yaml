@@ -1,0 +1,20 @@
+---
+- hosts: localhost
+  tasks:
+
+    - name: Creates directory
+      file:
+        path:  /home/ayoung/ocp-ansible/stage
+        state: directory
+
+    - name: regen install-config 
+      copy:
+        src:  /home/ayoung/ocp-ansible/files/install-config.yaml.orig
+        dest: /home/ayoung/ocp-ansible/stage/install-config.yaml
+
+    - name: validate install-config
+      command: /home/ayoung/apps/ocp4.4/openshift-install create install-config  --dir /home/ayoung/ocp-ansible/stage
+      environment:
+        OS_CLOUD: fsi-moc
+
+
