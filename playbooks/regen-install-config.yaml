@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   vars:
+    base_dir: /home/ayoung/ocp-ansible
   tasks:
 
     - name: Creates directory
@@ -10,11 +11,11 @@
 
     - name: regen install-config 
       copy:
-        src:  /home/ayoung/ocp-ansible/files/install-config.yaml.orig
+        src:  "{{ base_dir }}/files/install-config.yaml.orig"
         dest: "{{ stage_dir }}/install-config.yaml"
 
     - name: validate install-config
-      command: /home/ayoung/apps/ocp4.4/openshift-install create install-config  --dir "{{ stage_dir }}"
+      command: "{{ base_dir }}/bin/openshift-install create install-config --dir {{ stage_dir }}"
       environment:
         OS_CLOUD: fsi-moc
 
