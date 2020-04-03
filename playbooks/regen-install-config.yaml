@@ -61,5 +61,5 @@
       args:
         chdir:  "{{ stage_dir }}"
       environment:
-        INFRA_IDS: "{{ INFRA_ID }}"
+        INFRA_ID: "{{ INFRA_ID.stdout }}"
 
