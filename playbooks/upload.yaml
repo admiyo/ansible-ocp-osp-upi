@@ -25,8 +25,14 @@
       args:
         chdir:  "{{ stage_dir }}"
 
-
     - name: generate boot strap ignition stub
       template:
         src: "{{ base_dir }}/templates/bootstrap-ignition.json.j2"
         dest: "{{ stage_dir }}/{{ infra_id.stdout }}-bootstrap-ignition.json"
+
+    - name: generate master ignition stubs
+      command: "{{ base_dir }}/bin/gen_master_shim.py"
+      args:
+        chdir:  "{{ stage_dir }}"
+      environment:
+        INFRA_ID: "{{ infra_id.stdout }}"

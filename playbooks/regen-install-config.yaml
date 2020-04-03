@@ -29,7 +29,6 @@
       environment:
          OS_CLOUD: fsi-moc
 
-
     - name: remove machines and machinesets
       file:
         path: "{{ stage_dir }}/openshift/{{ item }}"
