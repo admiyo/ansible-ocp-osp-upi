@@ -1,7 +1,7 @@
 ---
 - hosts: localhost
   vars:
-    installer:  "{{ base_dir }}/bin/openshift-install --dir {{ stage_dir }}" 
+    installer:  "{{ base_dir }}/exec/openshift-install --dir {{ stage_dir }}" 
   tasks:
 
     - name: Creates directory
@@ -20,7 +20,7 @@
         OS_CLOUD: fsi-moc
 
     - name: adjust install config
-      command: "{{ base_dir }}/bin/adjust_install_config.py"
+      command: "{{ base_dir }}/exec/adjust_install_config.py"
       args:
         chdir:  "{{ stage_dir }}"
 
@@ -40,7 +40,7 @@
         -  99_openshift-cluster-api_worker-machineset-0.yaml
 
     - name: control-plane nodes unschedulable
-      command: "{{ base_dir }}/bin/unschedulable_control.py"
+      command: "{{ base_dir }}/exec/unschedulable_control.py"
       args:
         chdir:  "{{ stage_dir }}"
 
@@ -56,7 +56,7 @@
         chdir:  "{{ stage_dir }}"
 
     - name: modify bootstrap
-      command: "{{ base_dir }}/bin/mod_bootstrap.py"
+      command: "{{ base_dir }}/exec/mod_bootstrap.py"
       args:
         chdir:  "{{ stage_dir }}"
       environment:

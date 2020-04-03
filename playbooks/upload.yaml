@@ -31,7 +31,7 @@
         dest: "{{ stage_dir }}/{{ infra_id.stdout }}-bootstrap-ignition.json"
 
     - name: generate master ignition stubs
-      command: "{{ base_dir }}/bin/gen_master_shim.py"
+      command: "{{ base_dir }}/exec/gen_master_shim.py"
       args:
         chdir:  "{{ stage_dir }}"
       environment:
