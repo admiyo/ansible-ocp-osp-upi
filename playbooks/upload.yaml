@@ -1,0 +1,32 @@
+---
+- hosts: localhost
+  vars:
+    - container_name: rhfsi-ocp
+  tasks:
+    - name: upload ignition config to swift
+      os_object:
+        cloud: fsi-moc
+        state: present
+        name: bootstrap.ign
+        container: "{ container_name }}"
+        filename:  "{{ stage_dir }}/bootstrap.ign"
+    
+    - name: register storage_url
+      shell:  openstack catalog show swift -f json | jq -r '.endpoints' | awk '/public/ {print $2}'
+      register: storage_url
+      environment:
+        OS_CLOUD: fsi-moc
+
+    - debug:
+        msg: "post to {{ storage_url.stdout }}/{{ container_name}}/bootstrap.ign"
+    - name: register infra_id
+      shell: jq -r .infraID metadata.json
+      register: infra_id
+      args:
+        chdir:  "{{ stage_dir }}"
+
+
+    - name: generate boot strap ignition stub
+      template:
+        src: "{{ base_dir }}/templates/bootstrap-ignition.json.j2"
+        dest: "{{ stage_dir }}/{{ infra_id.stdout }}-bootstrap-ignition.json"

@@ -1,0 +1,20 @@
+{
+  "ignition": {
+    "config": {
+      "append": [
+        {
+          "source": "{{ storage_url.stdout }}/{{ container_name}}/bootstrap.ign",
+          "verification": {},
+          "httpHeaders": []
+        }
+      ]
+    },
+    "security": {},
+    "timeouts": {},
+    "version": "2.4.0"
+  },
+  "networkd": {},
+  "passwd": {},
+  "storage": {},
+  "systemd": {}
+}
